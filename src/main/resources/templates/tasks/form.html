@@ -9,6 +9,7 @@
 <body>
 <section layout:fragment="content">
     <div>
+        
         <form th:action="${mode=='CREATE'} ? @{/tasks} : @{/tasks/{id}(id=${id})}"
               th:method="${mode=='CREATE'} ? post : put"
               th:object="${taskForm}">

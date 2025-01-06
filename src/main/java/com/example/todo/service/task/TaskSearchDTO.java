@@ -6,7 +6,8 @@ import java.util.Optional;
 public record TaskSearchDTO (
         String summary,
         List<String> statuslist
-){
+)
+{
     public boolean isChecked(String status){
         return Optional.ofNullable(statuslist)
                 .map(l->l.contains(status))

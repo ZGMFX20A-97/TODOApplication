@@ -7,6 +7,7 @@ import com.example.todo.service.task.TaskStatus;
 import java.util.List;
 import java.util.Optional;
 
+//検索条件を入れるオブジェクトを定義する
 public record TaskSearchForm (
         String summary,
         List<String> status

@@ -9,6 +9,8 @@ import java.util.Optional;
 
 @Mapper
 public interface TaskRepository {
+
+    //検索用のクエリ操作　検索欄が空白時はwhere句が取り除かれるようMybatisのDynamicSQL記法を使用する
     @Select("""
             <script>
             select id,summary,description,status from tasks
@@ -18,7 +20,7 @@ public interface TaskRepository {
              </if>
              <if test='condition.status != null and !condition.status.isEmpty()'>
              and status in(
-             <foreach item='item' index='index' collection='condition.status' separator=','>
+             <foreach item='item' collection='condition.status' separator=','>
              #{item}
              </foreach>
              )
@@ -28,15 +30,18 @@ public interface TaskRepository {
             """)
     List<TaskEntity> select(@Param("condition") TaskSearchEntity condition);
 
+    //特定idのタスクデータを取得する
     @Select("select id,summary,description,status from tasks where id=#{taskId};")
     Optional<TaskEntity> selectById(@Param("taskId") long taskId);
 
+    //タスクを新規挿入（作成）用
     @Insert("""
             insert into tasks(summary,description,status)
             values(#{task.summary},#{task.description},#{task.status});
             """)
     void insert(@Param("task") TaskEntity newEntity);
 
+    //DB内のタスクデータを更新するそうさ
     @Update("""
             update tasks
             set
@@ -47,6 +52,8 @@ public interface TaskRepository {
                 id=#{task.id}
             """)
     void update(@Param("task") TaskEntity entity);
+
+    //DB内のタスクデータを削除する操作
     @Delete("""
             delete from tasks where id = #{taskId}
             """)

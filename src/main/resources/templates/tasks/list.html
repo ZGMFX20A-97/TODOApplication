@@ -9,6 +9,7 @@
 <body>
 <section layout:fragment="content">
     <div>
+
         <div>
             <a th:href="@{tasks/creationForm}" class="btn btn-primary">タスクを作成する</a>
         </div>
@@ -50,6 +51,8 @@
             </thead>
 
             <tbody>
+            <!-- バックから渡ってきたtaskListからtaskを一つずつ取り出して表示する -->
+            <!-- タスクののidや概要をクリックするとタスクの詳細画面へとぶ -->
             <tr th:each="task:${taskList}" th:object="${task}">
                 <td><a th:href="@{/tasks/{id}(id=*{id})}" th:text="'#'+ *{id}"></a></td>
                 <td><a th:href="@{/tasks/{id}(id=*{id})}" th:text="*{summary}"></a></td>

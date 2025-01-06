@@ -3,12 +3,13 @@ package com.example.todo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller()
+@Controller
 public class IndexController {
-    //http:localhost:8080->"hello world"
-    //GET request->"Hello World"
+
+    //インデックスページのリクエストを受け付けるエンドポイント
     @GetMapping("/")
     public String index(){
         return "index";
     }
+    
 }
